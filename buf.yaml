@@ -1,0 +1,14 @@
+version: v2
+name: buf.build/bufbuild/protodescriptor
+deps:
+  - buf.build/bufbuild/protovalidate
+lint:
+  use:
+    - STANDARD
+    - UNARY_RPC
+    - COMMENTS
+  disallow_comment_ignores: true
+breaking:
+  use:
+    - WIRE_JSON
+  ignore_unstable_packages: true

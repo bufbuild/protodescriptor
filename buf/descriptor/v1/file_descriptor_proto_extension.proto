@@ -1,0 +1,48 @@
+// Copyright 2025 Buf Technologies, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+package buf.descriptor.v1;
+
+import "buf/descriptor/v1/module_name.proto";
+
+option go_package = "buf.build/gen/go/bufbuild/descriptor/protocolbuffers/go/buf/descriptor/v1";
+
+// Extensions to google.protobuf.FileDescriptorProto.
+//
+// This message is not actually an extension to FileDescriptorProto, rather it lives within
+// a FileDescriptorSetExtension, which itself is used for an extension to FileDescriptorSet.
+// This is because the Google team preferred these extensions live on FileDescriptorSet and
+// SourceCodeInfo instead of on FileDescriptorProto.
+//
+// These are encapsulated in a single message so that a single extension number can be used
+// on google.protobuf.FileDescriptorProto.
+message FileDescriptorProtoExtension {
+  // Whether or not the file is considered an "import".
+  //
+  // An import is a file that is either:
+  //
+  //   - A Well-Known Type included from the compiler and imported by a targeted file.
+  //   - A file that was included from a Buf module dependency and imported by a targeted file.
+  //   - A file that was not targeted, but was imported by a targeted file.
+  //
+  // We use "import" as this matches with the protoc concept of --include_imports, however
+  // import is a bit of an overloaded term.
+  bool is_import = 1;
+  // The name of the Buf module that the file belongs to.
+  //
+  // Will not be proto if this is unknown, or the file did not come from a Buf module.
+  ModuleName module_name = 2;
+}
