@@ -1,4 +1,4 @@
-// Copyright 2025 Buf Technologies, Inc.
+// Copyright 2025-2026 Buf Technologies, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ option go_package = "buf.build/gen/go/bufbuild/descriptor/protocolbuffers/go/buf
 // SourceCodeInfo instead of on FileDescriptorProto.
 //
 // These are encapsulated in a single message so that a single extension number can be used
-// on google.protobuf.FileDescriptorProto.
+// on google.protobuf.FileDescriptorSet.
 message FileDescriptorProtoExtension {
   // Whether or not the file is considered an "import".
   //
@@ -43,6 +43,6 @@ message FileDescriptorProtoExtension {
   bool is_import = 1;
   // The name of the Buf module that the file belongs to.
   //
-  // Will not be proto if this is unknown, or the file did not come from a Buf module.
+  // Will not be present if this is unknown, or the file did not come from a Buf module.
   ModuleName module_name = 2;
 }
